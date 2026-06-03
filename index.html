@@ -150,28 +150,53 @@
     <ol>
         <li><code>VisualStudioSetup.exe</code> を起動します 。(これはVisual Studio 2026をダウンロードした時に入手可能なインストールファイルです。)</li>
         <div class="screenshot">
-            <img src="images/vs2026_install.png" alt="vs2026のインストールファイル">
+            <p>
+              <a href="images/vs2026_install.png" target="_blank" rel="nofollow noopener">
+                  <img src="images/vs2026_install.png" alt="vs2026のインストールファイル" loading="lazy">
+              </a>
+            </p>
         </div>
         <li>「続行」をクリックします 。</li>
         <div class="screenshot">
-            <img src="images/vs2026_continue.png" alt="vs2026のインストールを続行">
+            <p>
+                <a href="images/vs2026_continue.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_continue.png" alt="vs2026のインストールを続行" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>インストールの詳細画面が表示されたら、「デスクトップとモバイル」項目内にある<strong>「C++によるデスクトップ開発」</strong>を選択します。このとき、インストールの詳細は変更を行わずにデフォルトのままとします 。</li>
         <div class="screenshot">
-            <img src="images/vs2026_workload.png" alt="vs2026のインストールの詳細">
+            <p>
+                <a href="images/vs2026_workload.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_workload.png" alt="vs2026のインストールの詳細" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>「インストール」をクリックし、完了まで待ちます（20分程度かかります） 。</li>
-        <div class="screenshot">
-            <!-- ここにスクショ -->
-        </div>
+
         <li>インストール完了後、Visual Studioを起動します 。</li>
+        <div class="screenshot">
+            <p>
+                <a href="images/vs2026_boot.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_boot.png" alt="vs2026の起動画面" loading="lazy">
+                </a>
+            </p>
+        </div>
         <li>Microsoftアカウント、またはGitHubアカウントでのログインが要求されるため、ログインします（後から変更やスキップも可能です） 。</li>
         <div class="screenshot">
-            <img src="images/vs2026_acounts.png" alt="vs2026のサインイン画面">
+            <p>
+                <a href="images/vs2026_acounts.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_acounts.png" alt="vs2026のサインイン画面" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>開発設定（変更なし）と配色テーマ（任意）を選択して開始します 。</li>
         <div class="screenshot">
-            <img src="images/vs2026_theme.png" alt="vs2026のテーマ選択画面">
+            <p>
+                <a href="images/vs2026_theme.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_theme.png" alt="vs2026のテーマ選択画面" loading="lazy">
+                </a>
+            </p>
         </div>
     </ol>
 
@@ -179,11 +204,19 @@
     <ol>
         <li>起動画面から<strong>「新しいプロジェクトの作成」</strong>を選択します 。</li>
         <div class="screenshot">
-            <img src="images/vs2026_new_project.png" alt="vs2026の新規プロジェクト作成">
+            <p>
+                <a href="images/vs2026_new_project.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_new_project.png" alt="vs2026の新規プロジェクト作成" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>テンプレート一覧から<strong>「ダイナミック リンク ライブラリ (DLL)」</strong>を選択し、「次へ」をクリックします 。</li>
         <div class="screenshot">
-            <img src="images/vs2026_dll.png" alt="vs2026のdllプロジェクト">
+            <p>
+                <a href="images/vs2026_dll.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_dll.png" alt="vs2026のdllプロジェクト" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>プロジェクト名を任意のものに変更し（今回は <code>Sample</code> とします）、それ以外は変更せず「作成」をクリックします。画面に表示される <code>dllmain.cpp</code> が、後の <code>Sample.dll</code> の中身となります 。</li>
         <div class="screenshot">
@@ -191,7 +224,11 @@
         </div>
         <li>プロジェクトが開かれたら、画面上部のツールバーにある「Debug」の隣を確認し、<code>x86</code> であれば<strong><code>x64</code></strong>に変更します（最初から <code>x64</code> の場合はそのままにします）。AviUtl2は64bit用に書かれたプラグインしか動作しないため、この設定は必須です 。</li>
     	<div class="screenshot">
-    	    <img src="images/vs2026_oparation_screen.png" alt="vs2026の操作画面">
+            <p>
+                <a href="images/vs2026_oparation_screen.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_oparation_screen.png" alt="vs2026の操作画面" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>次に、不要なエラーを防ぐ設定を行います。プロジェクトを右クリックして「プロパティ」を開き、「構成プロパティ」→「C/C++」→「プリコンパイル済みヘッダー」 を選択します。一番上の「プリコンパイル済みヘッダー」の項目を**「プリコンパイル済みヘッダーを使用しない」**に変更し、OKボタンを押します。サンプルコードをそのまま貼り付けて動かす際に、システム特有のエラーが出るのを防ぐために必要な設定です。</li>    </ol>
         <div class="screenshot">
