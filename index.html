@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AviUtl2 入力プラグイン サンプルビルド手順</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --container-bg: #ffffff;
+            --border-color: #dee2e6;
+            --primary-color: #0056b3;
+            --accent-bg: #e9ecef;
+            --code-bg: #f1f3f5;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --text-color: #e0e0e0;
+                --container-bg: #1e1e1e;
+                --border-color: #333333;
+                --primary-color: #3792cb;
+                --accent-bg: #2d2d2d;
+                --code-bg: #252526;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", sans-serif;
+            line-height: 1.7;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin-top: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        p {
+            margin: 1em 0;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ol {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        .note {
+            background-color: var(--accent-bg);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.9em;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 0.85rem;
+            text-align: center;
+            color: #6c757d;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+        
+        /* スクリーンショット画像のスタイル調整 */
+        .screenshot {
+            margin: 10px 0 20px 0;
+            max-width: 100%;
+        }
+
+        .screenshot img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>AviUtl2 入力プラグイン サンプルプログラム実行手順</h1>
+    
+    <p>今回の記事では、AviUtl2の「入力プラグインのサンプルプログラム」を実行する手順を解説します。ここでは「サンプルプログラムを実行する」ことだけを目的とするため、プログラミングの知識などは一切必要としません。今回は「C++」を使用しますが、C++の書き方自体はサンプルプログラムの実行が済んだ後から勉強をすればよいため、ここではそういうものとして扱います 。</p>
+
+    <h2>1. 必要なもの</h2>
+    <p>今回の手順で必要なものは以下の3つです 。</p>
+    <ul>
+        <li><strong>Visual Studio 2026 (VS2026)</strong><br><a href="https://visualstudio.microsoft.com/ja/" target="_blank">https://visualstudio.microsoft.com/ja/</a> </li>
+        <li><strong>aviutl2_sdk.zip</strong><br><a href="https://spring-fragrance.mints.ne.jp/aviutl/" target="_blank">https://spring-fragrance.mints.ne.jp/aviutl/</a> </li>
+        <li><strong>AviUtl2本体</strong>（動作確認用）<br><a href="https://spring-fragrance.mints.ne.jp/aviutl/" target="_blank">https://spring-fragrance.mints.ne.jp/aviutl/</a> </li>
+    </ul>
+
+    <div class="note">
+        <strong>開発環境に関する補足：</strong><br>
+        本手順は、先行事例である「<a href="https://qiita.com/vngecjasz/items/65f4fff15ebde747eb57" target="_blank">【aviutl2】Plugin開発備忘録｜SDK構成とDLLビルド手順</a>」(2025年7月24日投稿) の流れをベースにしています 。先行記事ではVisual Studio 2022が使用されていますが、本記事では最新の安定版であるVisual Studio 2026を使用します 。不安な場合や、参考記事と完全に同一の手順を行いたい場合はVisual Studio 2022を利用してください 。
+    </div>
+
+    <h2>2. プラグイン開発における言語と環境の前提</h2>
+    <p>プラグインは、C++などのプログラミング言語で作成したコードを「コンパイル（パソコンが実行できるファイル形式に変換すること）」することで利用可能になります 。C#、C言語、Rust、Delphiなどでも作成可能ですが、公式サンプルのプラグインがC++で記述されているため、今回はC++を採用します （Lua単体でのプラグイン出力はできません ）。C++によるコンパイルを最も簡単に行う手段として、Visual Studioを利用するのが合理的です 。</p>
+
+    <h2>3. 開発環境のインストール手順</h2>
+    <ol>
+        <li><code>VisualStudioSetup.exe</code> を起動します 。(これはVisual Studio 2026をダウンロードした時に入手可能なインストールファイルです。)</li>
+        <li>「続行」をクリックします 。</li>
+        <li>インストールの詳細画面が表示されたら、「デスクトップとモバイル」項目内にある<strong>「C++によるデスクトップ開発」</strong>を選択します。このとき、インストールの詳細は変更を行わずにデフォルトのままとします 。</li>
+        <div class="screenshot">
+            <img src="images/vs2026_install.png" alt="C++によるデスクトップ開発の選択画面">
+        </div>
+        <li>「インストール」をクリックし、完了まで待ちます（20分程度かかります） 。</li>
+        <li>インストール完了後、Visual Studioを起動します 。</li>
+        <li>Microsoftアカウント、またはGitHubアカウントでのログインが要求されるため、ログインします（後から変更やスキップも可能です） 。</li>
+        <li>開発設定（変更なし）と配色テーマ（任意）を選択して開始します 。</li>
+    </ol>
+
+    <h2>4. プロジェクトの新規作成と初期設定</h2>
+    <ol>
+        <li>起動画面から<strong>「新しいプロジェクトの作成」</strong>を選択します 。</li>
+        <li>テンプレート一覧から<strong>「ダイナミック リンク ライブラリ (DLL)」</strong>を選択し、「次へ」をクリックします 。</li>
+        <li>プロジェクト名を任意のものに変更し（今回は <code>Sample</code> とします）、それ以外は変更せず「作成」をクリックします。画面に表示される <code>dllmain.cpp</code> が、後の <code>Sample.dll</code> の中身となります 。</li>
+        <li>プロジェクトが開かれたら、画面上部のツールバーにある「Debug」の隣を確認し、<code>x86</code> であれば<strong><code>x64</code></strong>に変更します（最初から <code>x64</code> の場合はそのままにします）。AviUtl2は64bit用に書かれたプラグインしか動作しないため、この設定は必須です 。</li>
+    </ol>
+
+    <h2>5. SDKヘッダーファイルの組み込み</h2>
+    <ol>
+        <li>ダウンロードした <code>aviutl2_sdk.zip</code> を解凍しておきます 。</li>
+        <li>VS2026に戻り、画面右側の「ソリューション エクスプローラー」から作成したプロジェクト（Sample）を右クリックし、<strong>「エクスプローラーで開く」</strong>を選択します 。</li>
+        <li>開いたプロジェクトのディレクトリ内に、解凍したSDK内にある拡張子 <code>.h</code> のファイルをコピーします 。今回は入力プラグインを対象とするため、<strong><code>input2.h</code></strong> をここにコピーします 。</li>
+        <li>VS2026のソリューションエクスプローラー上で、プロジェクトを右クリック ＞「追加」 ＞「既存の項目」を選択し、先ほどコピーした <code>input2.h</code> をプロジェクトに追加します 。<br>
+        <small>（※プロジェクトの構成によっては追加せずとも動作する場合がありますが、将来的なファイル構成変更時のエラーを防ぐため、追加しておくことを推奨します 。）</small></li>
+    </ol>
+
+    <h2>6. サンプルコードの実装とビルド</h2>
+    <ol>
+        <li>SDK内のサンプルソースである <code>AviReader.cpp</code> を開き、その全内容をコピーします 。</li>
+        <li>VS2026上の <code>dllmain.cpp</code> の中身を、コピーした内容で完全に上書きします 。このコードは、先ほど追加した <code>input2.h</code> とシステム用の <code>windows.h</code> を読み込む、入力プラグインのサンプルロジックです 。</li>
+        <li>ビルドを行うため、ツールバーの「Debug」「x64」となっている箇所のドロップダウンを、<strong>「Release」「x64」</strong>に変更します 。</li>
+        <li>メニューから<strong>「ビルド」 ＞ 「ソリューションのビルド」</strong>を実行します 。</li>
+        <li>ビルド完了後、プロジェクト名を右クリックして「エクスプローラーで開く」を選択し、表示されたディレクトリの<strong>1つ上の階層</strong>にある <code>x64</code> フォルダを開きます 。</li>
+        <li>その中の <code>Release</code> フォルダ内に、プロジェクト名と同名の <strong><code>Sample.dll</code></strong> が生成されていることを確認します 。</li>
+    </ol>
+
+    <h2>7. 配置と動作確認</h2>
+    <ol>
+        <li>生成された <code>Sample.dll</code> の拡張子を手動で変更し、入力プラグインの形式である <strong><code>Sample.aui2</code></strong> に書き換えます 。</li>
+        <li>変更したファイルを、AviUtl2のプラグイン認識ディレクトリ（例：<code>C:\ProgramData\aviutl2\Plugin</code>、または本体フォルダ内の <code>plugins</code> ディレクトリ）にコピーします 。</li>
+        <li>AviUtl2を起動し、メニューの「その他」 ＞ 「プラグイン情報」を確認します 。</li>
+        <li>一覧に<strong>「AVI File Reader(sample)」</strong>が表示されていれば、サンプルプラグインのビルドと組み込みは成功です 。</li>
+    </ol>
+
+    <h2>8. プラグイン情報の変更と再ビルド</h2>
+    <ol>
+        <li>プラグイン名や識別情報を固有のものに変更するため、VS2026で <code>dllmain.cpp</code> を開きます 。</li>
+        <li>「入力プラグイン構造体定義」が記述されているセクションを探し、文字列の値を任意の内容に書き換えます 。</li>
+        <div class="note">
+            <strong>注意点：</strong><br>
+            文字列の先頭にある <strong><code>L</code></strong> および <code>""</code>（ダブルクォーテーション）は削除しないでください 。<code>L</code> は型を「ワイド文字列」というAviUtl2のAPI仕様に適応させるための識別子であり、削除すると型不一致によるコンパイルエラーが発生します。
+        </div>
+        <li>変更後、再度手順6〜7と同様の手順で「Release / x64」ビルドを行い、拡張子を <code>.aui2</code> に変更して上書き配置します 。</li>
+        <li>AviUtl2を再起動し、プラグイン情報に変更した名称が反映されていることを確認します 。</li>
+    </ol>
+
+    <div class="footer">
+        <p>これにてサンプルプラグインの作成および変更の反映手順は完了です 。</p>
+        <p>内部の処理ロジックの書き換えや独自のフィルタ機能を実装する場合、ここから本格的な「C++」の学習へと進むことになります 。</p>
+    </div>
+</div>
+
+</body>
+</html>
