@@ -219,20 +219,50 @@
             </p>
         </div>
         <li>プロジェクト名を任意のものに変更し（今回は <code>Sample</code> とします）、それ以外は変更せず「作成」をクリックします。画面に表示される <code>dllmain.cpp</code> が、後の <code>Sample.dll</code> の中身となります 。</li>
-        <div class="screenshot">
-            <!-- ここにスクショ -->
-        </div>
-        <li>プロジェクトが開かれたら、画面上部のツールバーにある「Debug」の隣を確認し、<code>x86</code> であれば<strong><code>x64</code></strong>に変更します（最初から <code>x64</code> の場合はそのままにします）。AviUtl2は64bit用に書かれたプラグインしか動作しないため、この設定は必須です 。</li>
     	<div class="screenshot">
             <p>
-                <a href="images/vs2026_oparation_screen.png" target="_blank" rel="nofollow noopener">
-                    <img src="images/vs2026_oparation_screen.png" alt="vs2026の操作画面" loading="lazy">
+                <a href="images/vs2026_rename.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_rename.png" alt="vs2026のプロジェクト名を変更" loading="lazy">
                 </a>
             </p>
         </div>
-        <li>次に、不要なエラーを防ぐ設定を行います。プロジェクトを右クリックして「プロパティ」を開き、「構成プロパティ」→「C/C++」→「プリコンパイル済みヘッダー」 を選択します。一番上の「プリコンパイル済みヘッダー」の項目を**「プリコンパイル済みヘッダーを使用しない」**に変更し、OKボタンを押します。サンプルコードをそのまま貼り付けて動かす際に、システム特有のエラーが出るのを防ぐために必要な設定です。</li>    </ol>
-        <div class="screenshot">
-            <!-- ここにスクショ -->
+        <li>プロジェクトが開かれたら、画面上部のツールバーにある「Debug」の隣を確認し、<code>x86</code> であれば<strong><code>x64</code></strong>に変更します（最初から <code>x64</code> の場合はそのままにします）。</li>
+    	<div class="screenshot">
+            <p>
+                <a href="images/vs2026_changed_x64.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_changed_x64.png" alt="vs2026の" loading="lazy">
+                </a>
+            </p>
+        </div>
+        <div class="note">
+            <strong>【解説】なぜx64にする必要があるのか？</strong>
+            <p><strong>● プラットフォーム（ビルド対象）とは？</strong><br>
+            これは、作成するプログラムを「32bit環境（x86）」と「64bit環境（x64）」のどちらに向けてビルド（出力）するかを指定する設定です。Visual Studioで新しいプロジェクトを作成すると、初期設定が <code>x86</code> になっている場合があります。</p>
+
+            <p><strong>● 変更しないとどうなるか（エラーや不具合の原因）</strong><br>
+            <code>x86</code> のままビルドを行うと、32bit用のプログラムが出力されます。<br>
+            しかし、AviUtl2はシステム全体が64bit専用に設計されているため、32bit用に作られたプラグイン（.auc や .aui など）を認識することができません。そのため、ビルド自体は成功したとしても、<strong>AviUtl2のプラグインフォルダに配置した際に「プラグインが一切読み込まれない（一覧に表示されない）」という問題が発生します。</strong></p>
+
+            <p><strong>● 設定を変更する理由</strong><br>
+            AviUtl2で動作するプラグインを開発するためには、出力されるバイナリが64bit形式である必要があります。AviUtl2用のプラグイン開発においては、開発の最初期段階でプラットフォームを<strong>『x64』</strong>へ明示的に変更することが必須条件となります。</p>
+            
+            <p>なお、従来の「AviUtl（旧バージョン）」は32bitソフトであったため <code>x86</code> で開発されていましたが、現在の「AviUtl2」は64bitソフトであり互換性がないため混同しないよう注意が必要です。</p>
+        </div>
+        <li>次に、不要なエラーを防ぐ設定を行います。プロジェクトを右クリックして「プロパティ」を開き、「構成プロパティ」→「C/C++」→「プリコンパイル済みヘッダー」 を選択します。一番上の「プリコンパイル済みヘッダー」の項目を<strong>「プリコンパイル済みヘッダーを使用しない」</strong>に変更し、OKボタンを押します。サンプルコードをそのまま貼り付けて動かす際に、システム特有のエラーが出るのを防ぐために必要な設定です。</li>
+    	<div class="screenshot">
+            <p>
+                <a href="images/vs2026_precompiled_headers.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_precompiled_headers.png" alt="vs2026のプリコンパイル済みヘッダー" loading="lazy">
+                </a>
+            </p>
+        </div>
+        <li>この時、「構成」が<strong>「すべての構成」</strong>になっているかを確認してから行ってください。</li>
+    	<div class="screenshot">
+            <p>
+                <a href="images/vs2026_composition.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_composition.png" alt="vs2026の構成" loading="lazy">
+                </a>
+            </p>
         </div>
         <div class="note">
             <strong>【解説】なぜこの設定変更が必要なのか？</strong>
@@ -247,26 +277,73 @@
             今回の目的は「既存のサンプルプログラムをまずはそのまま動かすこと」です。処理するファイルが1つだけのような小さなプログラムでは、この高速化機能の恩恵は1秒未満しかありません。メリットに対して「エラーを引き起こす罠」になるデメリットの方が大きいため、安全のために機能を<strong>『使用しない』</strong>へと明示的にOFFにする必要があります。</p>
             
             <p>Aviutl2のプラグインのようなソースコードが少ないプログラムの場合、実際に独自のコードを作成する場合もOFFにしておく構成が一般的です。</p>
-            
         </div>
         
     <h2>5. SDKヘッダーファイルの組み込み</h2>
     <ol>
         <li>ダウンロードした <code>aviutl2_sdk.zip</code> を解凍しておきます 。</li>
-        <div class="screenshot">
-            <!-- ここにスクショ -->
+    	<div class="screenshot">
+            <p>
+                <a href="images/aviutl2_sdk_conclusion.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/aviutl2_sdk_conclusion.png" alt="aviutl2_sdkの解凍" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>VS2026に戻り、画面右側の「ソリューション エクスプローラー」から作成したプロジェクト（Sample）を右クリックし、<strong>「エクスプローラーで開く」</strong>を選択します 。</li>
-        <div class="screenshot">
-            <!-- ここにスクショ -->
+    	<div class="screenshot">
+            <p>
+                <a href="images/vs2026_solution_open1.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_solution_open1.png" alt="vs2026のソリューションを開く1" loading="lazy">
+                </a>
+            </p>
+        </div>
+    	<div class="screenshot">
+            <p>
+                <a href="images/vs2026_solution_open2.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_solution_open2.png" alt="vs2026のソリューションを開く2" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>開いたプロジェクトのディレクトリ内に、解凍したSDK内にある拡張子 <code>.h</code> のファイルをコピーします 。今回は入力プラグインを対象とするため、<strong><code>input2.h</code></strong> をここにコピーします 。</li>
-        <div class="screenshot">
-            <!-- ここにスクショ -->
+    	<div class="screenshot">
+            <p>
+                <a href="images/aviutl2_sdk_copy.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/aviutl2_sdk_copy.png" alt="aviutl2_sdk内の.hファイルを" loading="lazy">
+                </a>
+            </p>
         </div>
+        
+        <div class="note">
+            <strong>【解説】なぜこのファイル（input2.h）を選択するのか？</strong>
+            <p><strong>● SDKに含まれるヘッダーファイル（.h）の種類</strong><br>
+            AviUtl2のSDKには、開発するプラグインの役割（機能）に応じて、それぞれ異なるヘッダーファイルが用意されています。主なものは以下の通りです。</p>
+            <ul>
+                <li><code>input2.h</code> ：映像や音声のファイルを読み込むための<strong>「入力プラグイン」</strong>用</li>
+                <li><code>output2.h</code> ：編集した動画をファイルとして書き出すための<strong>「出力プラグイン」</strong>用</li>
+                <li><code>filter2.h</code> ：色調補正やエフェクトなどの効果を与えるための<strong>「フィルタプラグイン」</strong>用</li>
+            </ul>
+            <p>上記以外にも複数の<code>.h</code>ファイルが存在します。</p>
+            <p><strong>● 間違ったファイルをコピーするとどうなるか</strong><br>
+            例えば、入力プラグインを作りたいのに <code>filter2.h</code> をコピーした場合、プログラム側から「入力プラグインを構成するための専用の命令や仕組み」を呼び出すことができなくなります。その結果、コード内にエラーが発生してビルドに失敗するか、ビルドが通ってもAviUtl2側で正しく機能が認識されません。</p>
+
+            <p><strong>● 今回 <code>input2.h</code> を選ぶ理由</strong><br>
+            今回の目的は「動画や音声を読み込むプラグイン（入力プラグイン）のサンプル」を作成することです。そのため、その開発の土台となる <strong><code>input2.h</code></strong> を選択してプロジェクトに配置する必要があります。将来的に出力プラグインやフィルタプラグインを自作する場合は、この段階でそれぞれの目的に応じたヘッダーファイルを選択することになります。</p>
+        </div>
+        
         <li>VS2026のソリューションエクスプローラー上で、プロジェクトを右クリック ＞「追加」 ＞「既存の項目」を選択し、先ほどコピーした <code>input2.h</code> をプロジェクトに追加します 。<br>
-        <div class="screenshot">
-            <!-- ここにスクショ -->
+    	<div class="screenshot">
+            <p>
+                <a href="images/vs2026_solution_open1.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_solution_open1.png" alt="vs2026にaviutl2_sdkのファイルを追加1" loading="lazy">
+                </a>
+            </p>
+        </div>
+    	<div class="screenshot">
+            <p>
+                <a href="images/vs2026_sdk_add.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_sdk_add.png" alt="vs2026にaviutl2_sdkのファイルを追加2" loading="lazy">
+                </a>
+            </p>
         </div>
         <small>（※プロジェクトの構成によっては追加せずとも動作する場合がありますが、将来的なファイル構成変更時のエラーを防ぐため、追加しておくことを推奨します 。）</small></li>
     </ol>
