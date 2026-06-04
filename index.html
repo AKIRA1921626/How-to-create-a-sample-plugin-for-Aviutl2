@@ -520,8 +520,8 @@
         <li>一覧に<strong>「AVI File Reader(sample)」</strong>が表示されていれば、サンプルプラグインのビルドと組み込みは成功です 。</li>
         <div class="screenshot">
             <p>
-                <a href="images//aviutl2_plugin_checked2.png" target="_blank" rel="nofollow noopener">
-                    <img src="images//aviutl2_plugin_checked2.png" alt="「Sample.aui2」がプラグインとして読み込まれているかチェック。2" loading="lazy">
+                <a href="images/aviutl2_plugin_checked2.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/aviutl2_plugin_checked2.png" alt="「Sample.aui2」がプラグインとして読み込まれているかチェック。2" loading="lazy">
                 </a>
             </p>
         </div>
@@ -531,25 +531,70 @@
     <ol>
         <li>プラグイン名や識別情報を固有のものに変更するため、VS2026で <code>dllmain.cpp</code> を開きます 。</li>
         <div class="screenshot">
-            <!-- ここにスクショ -->
+            <p>
+                <a href="images/open_dllmain.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/open_dllmain.png" alt="「dllmain.cpp」を再度開く。" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>「入力プラグイン構造体定義」が記述されているセクションを探し、文字列の値を任意の内容に書き換えます 。</li>
         <div class="screenshot">
-            <!-- ここにスクショ -->
+            <p>
+                <a href="images/dllmain_rewrite.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/dllmain_rewrite.png" alt="「dllmain.cpp」の一部の文字列を書き換える。" loading="lazy">
+                </a>
+            </p>
         </div>
         <div class="note">
             <strong>注意点：</strong><br>
             文字列の先頭にある <strong><code>L</code></strong> および <code>""</code>（ダブルクォーテーション）は削除しないでください 。<code>L</code> は型を「ワイド文字列」というAviUtl2のAPI仕様に適応させるための識別子であり、削除すると型不一致によるコンパイルエラーが発生します。
         </div>
         <li>下記の作業を行う前に手順6.3〜7.4で作成した<code>Sample.aui2</code> を事前に削除していないと、名前が被って下記の項目は行えないので削除しておきます。</li>
+        <div class="screenshot">
+            <p>
+                <a href="images/aui2_delete1.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/aui2_delete1.png" alt="「Sample.aui2」を一旦削除。1" loading="lazy">
+                </a>
+            </p>
+        </div>
+        <div class="screenshot">
+            <p>
+                <a href="images/aui2_delete2.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/aui2_delete2.png" alt="「Sample.aui2」を一旦削除。2" loading="lazy">
+                </a>
+            </p>
+        </div>
+        <p><code>Sample.dll</code>の方は、ソリューションのビルドを行えばその時上書きされるため、削除する必要はありません。（してもかまいません。）</p>
         <li>その後、再度手順6.3〜7.4と同様の手順で「Release / x64」ビルドを行い、拡張子を <code>.aui2</code> に変更します 。</li>
         <div class="screenshot">
-            <!-- ここにスクショ -->
+            <p>
+                <a href="images/ado_it_again1.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/do_it_again1.png" alt="再度ビルドを実行。1" loading="lazy">
+                </a>
+            </p>
+        </div>
+        <div class="screenshot">
+            <p>
+                <a href="images/ado_it_again2.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/do_it_again2.png" alt="再度ビルドを実行。2" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>変更したファイルを、再度AviUtl2のプラグイン認識ディレクトリ（例：<code>C:\ProgramData\aviutl2\Plugin</code>）にコピーします 。</li>
+        <div class="screenshot">
+            <p>
+                <a href="images/ado_it_again3.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/do_it_again3.png" alt="再度プラグインを「Plugin」に配置。" loading="lazy">
+                </a>
+            </p>
+        </div>
         <li>AviUtl2を再起動し、プラグイン情報に変更した名称が反映されていることを確認します 。</li>
         <div class="screenshot">
-            <!-- ここにスクショ -->
+            <p>
+                <a href="images/ado_it_again4.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/do_it_again4.png" alt="再度プラグインの反映を確認。" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>これでAviUtl2のサンプルプラグインの作成と動作確認は完了となります。</li>
     </ol>
