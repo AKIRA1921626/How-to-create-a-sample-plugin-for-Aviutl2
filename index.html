@@ -460,17 +460,70 @@
     <h2>7. 配置と動作確認</h2>
     <ol>
         <li>生成された <code>Sample.dll</code> の拡張子を手動で変更し、入力プラグインの形式である <strong><code>Sample.aui2</code></strong> に書き換えます 。</li>
-        <div class="screenshot">
-            <!-- ここにスクショ -->
+    	<div class="screenshot">
+            <p>
+                <a href="images/sample_dll_rename1.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/sample_dll_rename1.png" alt="「Sample.dll」を「Sample.aui2」に書き換える。1枚目。" loading="lazy">
+                </a>
+            </p>
         </div>
-        <li>変更したファイルを、AviUtl2のプラグイン認識ディレクトリ（例：<code>C:\ProgramData\aviutl2\Plugin</code>、または本体フォルダ内の <code>plugins</code> ディレクトリ）にコピーします 。</li>
+        <div class="screenshot">
+            <p>
+                <a href="images/sample_dll_rename2.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/sample_dll_rename2.png" alt="「Sample.dll」を「Sample.aui2」に書き換える。2枚目。" loading="lazy">
+                </a>
+            </p>
+        </div>
+        <div class="screenshot">
+            <p>
+                <a href="images/sample_dll_rename3.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/sample_dll_rename3.png" alt="「Sample.dll」を「Sample.aui2」に書き換える。3枚目。" loading="lazy">
+                </a>
+            </p>
+        </div>
+        
+        <div class="note">
+            <strong>【解説】なぜ拡張子を「.aui2」に書き換えるのか？</strong>
+            <p><strong>● 拡張子（.dll と .aui2）とは？</strong><br>
+            Visual Studioがプログラムをビルドした際、初期設定では汎用的な動的ライブラリを示す <code>.dll</code> という拡張子でファイルが出力されます。一方、<code>.aui2</code> はAviUtl2が「これは入力プラグインである」と識別するための<strong>専用の拡張子</strong>です（AviUtl <b>I</b>nput の略）。</p>
+
+            <p><strong>● 変更を行わないとどうなるか</strong><br>
+            出力された <code>Sample.dll</code> をそのままAviUtl2のプラグインフォルダに配置した場合、AviUtl2はそれをプラグインとして認識しません。ビルド自体は100%成功しており、プログラムの内部構造が正しくても、<strong>拡張子が <code>.dll</code> のままであるという理由だけで、システムに無視されて読み込まれない</strong>状態になります。</p>
+
+            <p><strong>● 手動で書き換える理由</strong><br>
+            Visual Studioに最初から <code>.aui2</code> として出力させる設定も可能ですが、プロジェクトの設定を書き換える手間が発生します。そのため、最もシンプルかつ確実な方法として、出力された <code>.dll</code> ファイルの名前（拡張子）をエクスプローラー上で直接書き換える手順をとっています。</p>
+
+            <p>なお、作成するプラグインの種類によって、最終的に変更すべき拡張子は以下のように異なります。</p>
+            <ul>
+                <li>入力プラグイン：<code>.aui2</code>（AviUtl Input 2）</li>
+                <li>出力プラグイン：<code>.auo2</code>（AviUtl Output 2）</li>
+                <li>フィルタプラグイン：<code>.auf2</code>（AviUtl Filter 2）</li>
+            </ul>
+        </div>
+        
+        <li>変更したファイルを、AviUtl2のプラグイン認識ディレクトリ（例：<code>C:\ProgramData\aviutl2\Plugin</code>）にコピーします 。</li>
+        <div class="screenshot">
+            <p>
+                <a href="images/aviutl2_plugin_arrangement.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/aviutl2_plugin_arrangement.png" alt="「Sample.aui2」をプラグインとして配置。" loading="lazy">
+                </a>
+            </p>
+        </div>
         <li>AviUtl2を起動し、メニューの「その他」 ＞ 「プラグイン情報」を確認します 。</li>
         <div class="screenshot">
-            <!-- ここにスクショ -->
+            <p>
+                <a href="images/aviutl2_plugin_checked1.png" target="_blank" rel="nofollow noopener">
+                    <img src="images//aviutl2_plugin_checked1.png" alt="「Sample.aui2」がプラグインとして読み込まれているかチェック。1" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>一覧に<strong>「AVI File Reader(sample)」</strong>が表示されていれば、サンプルプラグインのビルドと組み込みは成功です 。</li>
         <div class="screenshot">
-            <!-- ここにスクショ -->
+            <p>
+                <a href="images//aviutl2_plugin_checked2.png" target="_blank" rel="nofollow noopener">
+                    <img src="images//aviutl2_plugin_checked2.png" alt="「Sample.aui2」がプラグインとして読み込まれているかチェック。2" loading="lazy">
+                </a>
+            </p>
         </div>
     </ol>
 
@@ -488,15 +541,17 @@
             <strong>注意点：</strong><br>
             文字列の先頭にある <strong><code>L</code></strong> および <code>""</code>（ダブルクォーテーション）は削除しないでください 。<code>L</code> は型を「ワイド文字列」というAviUtl2のAPI仕様に適応させるための識別子であり、削除すると型不一致によるコンパイルエラーが発生します。
         </div>
-        <li>変更後、再度手順6.3〜7.4と同様の手順で「Release / x64」ビルドを行い、（最初に手順6.3〜7.4で作成した<code>Sample.aui2</code> を事前に削除していないと、名前が被ってこの項目は行えないので削除しておきます。）拡張子を <code>.aui2</code> に変更します 。</li>
+        <li>下記の作業を行う前に手順6.3〜7.4で作成した<code>Sample.aui2</code> を事前に削除していないと、名前が被って下記の項目は行えないので削除しておきます。</li>
+        <li>その後、再度手順6.3〜7.4と同様の手順で「Release / x64」ビルドを行い、拡張子を <code>.aui2</code> に変更します 。</li>
         <div class="screenshot">
             <!-- ここにスクショ -->
         </div>
-        <li>変更したファイルを、再度AviUtl2のプラグイン認識ディレクトリ（例：<code>C:\ProgramData\aviutl2\Plugin</code>、または本体フォルダ内の <code>plugins</code> ディレクトリ）にコピーします 。</li>
+        <li>変更したファイルを、再度AviUtl2のプラグイン認識ディレクトリ（例：<code>C:\ProgramData\aviutl2\Plugin</code>）にコピーします 。</li>
         <li>AviUtl2を再起動し、プラグイン情報に変更した名称が反映されていることを確認します 。</li>
         <div class="screenshot">
             <!-- ここにスクショ -->
         </div>
+        <li>これでAviUtl2のサンプルプラグインの作成と動作確認は完了となります。</li>
     </ol>
 
     <div class="footer">
