@@ -351,20 +351,110 @@
     <h2>6. サンプルコードの実装とビルド</h2>
     <ol>
         <li>SDK内のサンプルソースである <code>AviReader.cpp</code> を開き、その全内容をコピーします 。</li>
-        <div class="screenshot">
-            <!-- ここにスクショ -->
+    	<div class="screenshot">
+            <p>
+                <a href="images/AviReader_1.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/AviReader_1.png" alt="AviReaderのファイル1" loading="lazy">
+                </a>
+            </p>
         </div>
+        <div class="screenshot">
+            <p>
+                <a href="images/AviReader_2.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/AviReader_2.png" alt="AviReaderのファイル2" loading="lazy">
+                </a>
+            </p>
+        </div>
+        
+        <div class="note">
+            <strong>【解説】なぜこのファイル（AviReader.cpp）をコピーするのか？</strong>
+            <p><strong>● サンプルソース（.cpp）とは？</strong><br>
+            SDK（開発キット）の中には、プラグインの土台となるプログラムの記述例（サンプルソース）がいくつか同梱されています。これらは、特定の機能を実装するために必要な最低限のコードがあらかじめ記述された「設計図の雛形」です。</p>
+
+            <p><strong>● 別のサンプルを使用したり、一から書こうとするとどうなるか</strong><br>
+            SDKには他にも出力用やフィルタ用のサンプルが含まれています。目的と異なるサンプルをコピーしてしまうと、前述の手順で用意した <code>input2.h</code> と内部の命令が噛み合わず、大量のビルドエラーが発生します。<br>
+            また、これらを手動で一から記述する場合、AviUtl2の内部システムと通信するための複雑な初期化処理や構造体の定義をすべて正確に書き起こす必要があり、開発の難易度が極端に上がってしまいます。</p>
+
+            <p><strong>● 今回 <code>AviReader.cpp</code> を選ぶ理由</strong><br>
+            このファイルは、動画ファイルを読み込むための「入力プラグイン」の最も標準的なサンプルコードです。手順7で配置した <strong><code>input2.h</code> と完全にセット（一対の構成）</strong>になっており、そのままビルドするだけで正しく動作するプラグインを出力できるよう設計されています。<br>
+            そのため、まずはこの正常に動く雛形をプロジェクトにそのまま取り込み、ビルドができる環境が整っているかを確認するための基準点として選択しています。</p>
+        </div>
+        
         <li>VS2026上の <code>dllmain.cpp</code> の中身を、コピーした内容で完全に上書きします 。このコードは、先ほど追加した <code>input2.h</code> とシステム用の <code>windows.h</code> を読み込む、入力プラグインのサンプルロジックです 。</li>
+    	<div class="screenshot">
+            <p>
+                <a href="images/vs2026_Overwrite1.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_Overwrite1.png" alt="vs2026のdllをAviReaderの内容で上書き1" loading="lazy">
+                </a>
+            </p>
+        </div>
+    	<div class="screenshot">
+            <p>
+                <a href="images/vs2026_Overwrite2.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_Overwrite2.png" alt="vs2026のdllをAviReaderの内容で上書き2" loading="lazy">
+                </a>
+            </p>
+        </div>
         <li>ビルドを行うため、ツールバーの「Debug」「x64」となっている箇所のドロップダウンを、<strong>「Release」「x64」</strong>に変更します 。</li>
+    	<div class="screenshot">
+            <p>
+                <a href="images/vs2026_changed_release.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_changed_release.png" alt="vs2026の「Debug」を「Release」に変更。" loading="lazy">
+                </a>
+            </p>
+        </div>
         <li>メニューから<strong>「ビルド」 ＞ 「ソリューションのビルド」</strong>を実行します 。</li>
         <div class="screenshot">
-            <!-- ここにスクショ -->
+            <p>
+                <a href="images/vs2026_solution_build.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_solution_build.png" alt="vs2026で「ソリューションのビルド」を実行。" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>ビルド完了後、プロジェクト名を右クリックして「エクスプローラーで開く」を選択し、表示されたディレクトリの<strong>1つ上の階層</strong>にある <code>x64</code> フォルダを開きます 。</li>
+    	<div class="screenshot">
+            <p>
+                <a href="images/vs2026_build_complated.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_build_complated.png" alt="vs2026でビルド完了" loading="lazy">
+                </a>
+            </p>
+        </div>
+    	<div class="screenshot">
+            <p>
+                <a href="images/vs2026_open_exploler.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_open_exploler.png" alt="vs2026でエクスプローラーで開く" loading="lazy">
+                </a>
+            </p>
+        </div>
+    	<div class="screenshot">
+            <p>
+                <a href="images/opened_exploler1.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/opened_exploler1.png" alt="エクスプローラーで開いた直後" loading="lazy">
+                </a>
+            </p>
+        </div>
         <div class="screenshot">
-            <!-- ここにスクショ -->
+            <p>
+                <a href="images/opened_exploler2.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/opened_exploler2.png" alt="エクスプローラーで開いた上の階層" loading="lazy">
+                </a>
+            </p>
+        </div>
+        <div class="screenshot">
+            <p>
+                <a href="images/opened_exploler3.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/opened_exploler3.png" alt="エクスプローラーで開いた上の階層のx64" loading="lazy">
+                </a>
+            </p>
         </div>
         <li>その中の <code>Release</code> フォルダ内に、プロジェクト名と同名の <strong><code>Sample.dll</code></strong> が生成されていることを確認します 。</li>
+    	<div class="screenshot">
+            <p>
+                <a href="images/there_sample_dll.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/there_sample_dll.png" alt="x64フォルダに「Sample.dll」を確認" loading="lazy">
+                </a>
+            </p>
+        </div>
     </ol>
 
     <h2>7. 配置と動作確認</h2>
@@ -398,10 +488,11 @@
             <strong>注意点：</strong><br>
             文字列の先頭にある <strong><code>L</code></strong> および <code>""</code>（ダブルクォーテーション）は削除しないでください 。<code>L</code> は型を「ワイド文字列」というAviUtl2のAPI仕様に適応させるための識別子であり、削除すると型不一致によるコンパイルエラーが発生します。
         </div>
-        <li>変更後、再度手順6〜7と同様の手順で「Release / x64」ビルドを行い、拡張子を <code>.aui2</code> に変更して上書き配置します 。</li>
+        <li>変更後、再度手順6.3〜7.4と同様の手順で「Release / x64」ビルドを行い、（最初に手順6.3〜7.4で作成した<code>Sample.aui2</code> を事前に削除していないと、名前が被ってこの項目は行えないので削除しておきます。）拡張子を <code>.aui2</code> に変更します 。</li>
         <div class="screenshot">
             <!-- ここにスクショ -->
         </div>
+        <li>変更したファイルを、再度AviUtl2のプラグイン認識ディレクトリ（例：<code>C:\ProgramData\aviutl2\Plugin</code>、または本体フォルダ内の <code>plugins</code> ディレクトリ）にコピーします 。</li>
         <li>AviUtl2を再起動し、プラグイン情報に変更した名称が反映されていることを確認します 。</li>
         <div class="screenshot">
             <!-- ここにスクショ -->
