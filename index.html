@@ -248,19 +248,42 @@
             
             <p>なお、従来の「AviUtl（旧バージョン）」は32bitソフトであったため <code>x86</code> で開発されていましたが、現在の「AviUtl2」は64bitソフトであり互換性がないため混同しないよう注意が必要です。</p>
         </div>
-        <li>次に、不要なエラーを防ぐ設定を行います。プロジェクトを右クリックして「プロパティ」を開き、「構成プロパティ」→「C/C++」→「プリコンパイル済みヘッダー」 を選択します。一番上の「プリコンパイル済みヘッダー」の項目を<strong>「プリコンパイル済みヘッダーを使用しない」</strong>に変更し、OKボタンを押します。サンプルコードをそのまま貼り付けて動かす際に、システム特有のエラーが出るのを防ぐために必要な設定です。</li>
+        <li>次に、不要なエラーを防ぐ設定を行います。画面右下からソリューションエクスプローラーの項目を開き、プロジェクトを右クリックして「プロパティ」を開きます。</li>
     	<div class="screenshot">
             <p>
-                <a href="images/vs2026_precompiled_headers.png" target="_blank" rel="nofollow noopener">
-                    <img src="images/vs2026_precompiled_headers.png" alt="vs2026のプリコンパイル済みヘッダー" loading="lazy">
+                <a href="images/vs2026_solution_exploler_changed.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_solution_exploler_changed.png" alt="vs2026の項目をソリューションエクスプローラ－に変更。" loading="lazy">
                 </a>
             </p>
         </div>
-        <li>この時、「構成」が<strong>「すべての構成」</strong>になっているかを確認してから行ってください。</li>
+        <div class="screenshot">
+            <p>
+                <a href="images/vs2026_project_selected.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_project_selected.png" alt="vs2026のプロジェクトを選択。" loading="lazy">
+                </a>
+            </p>
+        </div>
+        <div class="screenshot">
+            <p>
+                <a href="images/vs2026_properties.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_properties.png" alt="vs2026のプロパティを開く。" loading="lazy">
+                </a>
+            </p>
+        </div>
+        <li>この時、開いたプロパティの「構成」が<strong>「すべての構成」</strong>になっているかを確認してから行ってください。</li>
     	<div class="screenshot">
             <p>
                 <a href="images/vs2026_composition.png" target="_blank" rel="nofollow noopener">
                     <img src="images/vs2026_composition.png" alt="vs2026の構成" loading="lazy">
+                </a>
+            </p>
+        </div>
+        <li>そして、「構成プロパティ」→「C/C++」→「プリコンパイル済みヘッダー」 を選択します。一番上の「プリコンパイル済みヘッダー」の項目を<strong>「プリコンパイル済みヘッダーを使用しない」</strong>に変更し、OKボタンを押します。後にサンプルコードをそのまま貼り付けて動かす際に、システム特有のエラーが出るのを防ぐために必要な設定です。</li>
+
+    	<div class="screenshot">
+            <p>
+                <a href="images/vs2026_precompiled_headers.png" target="_blank" rel="nofollow noopener">
+                    <img src="images/vs2026_precompiled_headers.png" alt="vs2026のプリコンパイル済みヘッダー" loading="lazy">
                 </a>
             </p>
         </div>
@@ -525,6 +548,8 @@
                 </a>
             </p>
         </div>
+        <p>このプラグインは元からあるものではなく、今までの操作で新たに導入したプラグインです。
+        先ほどプラグインを認識するディレクトリに配置した「Sample.aui2」を削除し、Aviutl2を再起動してみれば、このプラグインは消失することが確認できます。</p>
     </ol>
 
     <h2>8. プラグイン情報の変更と再ビルド</h2>
@@ -564,7 +589,7 @@
                 </a>
             </p>
         </div>
-        <p><code>Sample.dll</code>の方は、ソリューションのビルドを行えばその時上書きされるため、削除する必要はありません。（してもかまいません。）</p>
+        <p>もしも何らかの理由で、このディレクトリに<code>Sample.dll</code>を保持していた場合、<code>Sample.dll</code>の方は、ソリューションのビルドを行えばその時に上書きされるため、削除する必要はありません。（してもかまいません。）</p>
         <li>その後、再度手順6.3〜7.4と同様の手順で「Release / x64」ビルドを行い、拡張子を <code>.aui2</code> に変更します 。</li>
         <div class="screenshot">
             <p>
@@ -580,7 +605,7 @@
                 </a>
             </p>
         </div>
-        <li>変更したファイルを、再度AviUtl2のプラグイン認識ディレクトリ（例：<code>C:\ProgramData\aviutl2\Plugin</code>）にコピーします 。</li>
+        <li>変更したファイルを、再度AviUtl2のプラグイン認識ディレクトリ（例：<code>C:\ProgramData\aviutl2\Plugin</code>）に上書き、または、コピーします 。</li>
         <div class="screenshot">
             <p>
                 <a href="images/ado_it_again3.png" target="_blank" rel="nofollow noopener">
