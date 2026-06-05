@@ -432,7 +432,7 @@
             また、これらを手動で一から記述する場合、AviUtl2の内部システムと通信するための複雑な初期化処理や構造体の定義をすべて正確に書き起こす必要があり、開発の難易度が極端に上がってしまいます。</p>
 
             <p><strong>● 今回 <code>AviReader.cpp</code> を選ぶ理由</strong><br>
-            このファイルは、動画ファイルを読み込むための「入力プラグイン」の最も標準的なサンプルコードです。手順7で配置した <strong><code>input2.h</code> と完全にセット（一対の構成）</strong>になっており、そのままビルドするだけで正しく動作するプラグインを出力できるよう設計されています。<br>
+            このファイルは、動画ファイルを読み込むための「入力プラグイン」の最も標準的なサンプルコードです。手順5の3で配置した <strong><code>input2.h</code> と完全にセット（一対の構成）</strong>になっており、そのままビルドするだけで正しく動作するプラグインを出力できるよう設計されています。<br>
             そのため、まずはこの正常に動く雛形をプロジェクトにそのまま取り込み、ビルドができる環境が整っているかを確認するための基準点として選択しています。</p>
         </div>
         
@@ -575,7 +575,7 @@
         <div class="screenshot">
             <p>
                 <a href="images/aviutl2_plugin_checked1.png" target="_blank" rel="nofollow noopener">
-                    <img src="images//aviutl2_plugin_checked1.png" alt="「Sample.aui2」がプラグインとして読み込まれているかチェック。1" loading="lazy">
+                    <img src="images/aviutl2_plugin_checked1.png" alt="「Sample.aui2」がプラグインとして読み込まれているかチェック。1" loading="lazy">
                 </a>
             </p>
         </div>
@@ -632,14 +632,14 @@
         <li>その後、再度手順6.3〜7.4と同様の手順で「Release / x64」ビルドを行い、拡張子を <code>.aui2</code> に変更します 。</li>
         <div class="screenshot">
             <p>
-                <a href="images/ado_it_again1.png" target="_blank" rel="nofollow noopener">
+                <a href="images/do_it_again1.png" target="_blank" rel="nofollow noopener">
                     <img src="images/do_it_again1.png" alt="再度ビルドを実行。1" loading="lazy">
                 </a>
             </p>
         </div>
         <div class="screenshot">
             <p>
-                <a href="images/ado_it_again2.png" target="_blank" rel="nofollow noopener">
+                <a href="images/do_it_again2.png" target="_blank" rel="nofollow noopener">
                     <img src="images/do_it_again2.png" alt="再度ビルドを実行。2" loading="lazy">
                 </a>
             </p>
@@ -647,7 +647,7 @@
         <li>変更したファイルを、再度AviUtl2のプラグイン認識ディレクトリ（例：<code>C:\ProgramData\aviutl2\Plugin</code>）に上書き、または、コピーします 。</li>
         <div class="screenshot">
             <p>
-                <a href="images/ado_it_again3.png" target="_blank" rel="nofollow noopener">
+                <a href="images/do_it_again3.png" target="_blank" rel="nofollow noopener">
                     <img src="images/do_it_again3.png" alt="再度プラグインを「Plugin」に配置。" loading="lazy">
                 </a>
             </p>
@@ -655,7 +655,7 @@
         <li>AviUtl2を再起動し、プラグイン情報に変更した名称が反映されていることを確認します 。</li>
         <div class="screenshot">
             <p>
-                <a href="images/ado_it_again4.png" target="_blank" rel="nofollow noopener">
+                <a href="images/do_it_again4.png" target="_blank" rel="nofollow noopener">
                     <img src="images/do_it_again4.png" alt="再度プラグインの反映を確認。" loading="lazy">
                 </a>
             </p>
