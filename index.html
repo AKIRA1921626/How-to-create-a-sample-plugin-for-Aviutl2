@@ -670,7 +670,41 @@
         </div>
         <li>これでAviUtl2のサンプルプラグインの作成と動作確認は完了となります。</li>
     </ol>
+    
+	<h2>9. 応用：サンプル用出力プラグインの導入手順</h2>
+    <p>ここまでの手順を、筆者が作成したテスト用プログラムを使用し、同様の手順で「出力プラグイン（<code>.auo2</code>）」をビルドし、動作テストを行うことができます。その場合、以下の手順で実行確認を行ってください。</p>
+    
+    <div class="note">
+        <strong>テスト用プログラムの配布場所：</strong><br>
+        <a href="https://github.com/AKIRA1921626/output-plugin-test-code" target="_blank">https://github.com/AKIRA1921626/output-plugin-test-code</a>
+    </div>
 
+    <ol>
+        <li>上記URLから <strong><code>sample_output2_tester.cpp</code></strong> をダウンロードします。</li>
+        
+        <li>これまでの記事の手順のうち、以下の2箇所を置き換えて実行します。
+            <ul>
+                <li>「5. SDKヘッダーファイルの組み込み」の <code>input2.h</code> を、解凍したSDK内にある <strong><code>output2.h</code></strong> に置き換えてプロジェクトに追加する。</li>
+                <li>「6. サンプルコードの実装とビルド」の <code>AviReader.cpp</code> を、ダウンロードした <strong><code>sample_output2_tester.cpp</code></strong> の内容に置き換えて <code>dllmain.cpp</code> へ上書き貼り付けする。</li>
+            </ul>
+        </li>
+        <div class="screenshot">
+            <img src="images/vs2026_output_replace.png" alt="output2.hとテスターコードへの置き換え画面">
+        </div>
+
+        <li>「Release」「x64」でのビルド完了後、生成された <code>Sample.dll</code> の拡張子を出力プラグインの形式である <strong><code>.auo2</code></strong> （<code>Sample.auo2</code>）に変更し、AviUtl2のプラグインディレクトリに配置します。</li>
+
+        <li>AviUtl2を起動し、メニューからプラグインの欄（または「その他」＞「プラグイン情報」）を確認します。一覧に<strong>「テスト出力プラグイン」</strong>が出現していることを確認し、それを実行します。</li>
+        <div class="screenshot">
+            <img src="images/aviutl2_output_plugin_info.png" alt="プラグイン一覧にテスト出力プラグインが表示されている画面">
+        </div>
+
+        <li>実行完了後、指定の場所に<strong>「7つの項目が記載されたファイル」</strong>が自動生成されていれば、出力プラグインのビルドおよび動作テストは成功です。</li>
+        <div class="screenshot">
+            <img src="images/output_success_file.png" alt="生成された7つの項目が記載されたテキストファイル">
+        </div>
+    </ol>
+    
     <div class="footer">
         <p>これにてサンプルプラグインの作成および変更の反映手順は完了です 。</p>
         <p>内部の処理ロジックの書き換えや独自のフィルタ機能を実装する場合、ここから本格的な「C++」の学習へと進むことになります 。</p>
